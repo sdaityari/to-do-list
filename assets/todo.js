@@ -137,7 +137,6 @@ data = data || {};
             "text": params.description
         }).appendTo(wrapper);
 
-        //noinspection MagicNumberJS
 	    wrapper.draggable({
             start: function() {
                 $("#" + defaults.deleteDiv).show();
@@ -218,7 +217,6 @@ data = data || {};
             }
         };
 
-        //noinspection MagicNumberJS
 	    responseDialog.dialog({
             autoOpen: true,
             width: 400,
