@@ -137,13 +137,15 @@ data = data || {};
             "text": params.description
         }).appendTo(wrapper);
 
-        wrapper.draggable({
+	    wrapper.draggable({
             start: function() {
                 $("#" + defaults.deleteDiv).show();
             },
             stop: function() {
                 $("#" + defaults.deleteDiv).hide();
-            }
+            },
+	        revert: "invalid",
+	        revertDuration : 200
         });
 
     };
@@ -179,7 +181,7 @@ data = data || {};
             title: title,
             date: date,
             description: description
-        }
+        };
 
         // Saving element in local storage
         data[id] = tempData;
@@ -215,7 +217,7 @@ data = data || {};
             }
         };
 
-        responseDialog.dialog({
+	    responseDialog.dialog({
             autoOpen: true,
             width: 400,
             modal: true,
