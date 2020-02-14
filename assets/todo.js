@@ -198,7 +198,7 @@ data = data || {};
 
     var generateDialog = function (message) {
         var responseId = "response-dialog",
-            title = "Messaage",
+            title = "Message",
             responseDialog = $("#" + responseId),
             buttonOptions;
 
