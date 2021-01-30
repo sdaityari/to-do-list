@@ -1,3 +1,17 @@
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
 /* nanoscrollbar */
 .nano .pane   { background: #888; }
 .nano .slider { background: #111; }
@@ -48,6 +62,7 @@ body {
     width: 230px;
     margin: 5px;
     padding: 5px;
+    /*animation: shake 0.5s infinite;*/
 }
 
 .task-list input[type="button"]{
@@ -75,7 +90,9 @@ h3{
 
 #delete-div{
     display: none;
-    background-color: #fff;
+    /*background-color: #fff;*/
+    background-color: red;
+    color: white;
     border: 3px dotted #000;
     margin: 10px;
     height: 75px;

@@ -15,9 +15,9 @@ var todo = todo || {},
 
 data = data || {};
 
-(function(todo, data, $) {
+(async (todo, data, $) => {
 
-    var defaults = {
+    let defaults = {
             todoTask: "todo-task",
             todoHeader: "task-header",
             todoDate: "task-date",
@@ -32,12 +32,12 @@ data = data || {};
             "3" : "#completed"
         };
 
-    todo.init = function (options) {
+    todo.init = (options) => {
 
         options = options || {};
         options = $.extend({}, defaults, options);
 
-        $.each(data, function (index, params) {
+        $.each(data, (index, params) => {
             generateElement(params);
         });
 
@@ -58,10 +58,10 @@ data = data || {};
         });*/
 
         // Adding drop function to each category of task
-        $.each(codes, function (index, value) {
+        $.each(codes, (index, value) => {
             $(value).droppable({
-                drop: function (event, ui) {
-                        var element = ui.helper,
+                drop: (event, ui) => {
+                        let element = ui.helper,
                             css_id = element.attr("id"),
                             id = css_id.replace(options.taskId, ""),
                             object = data[id];
@@ -87,8 +87,8 @@ data = data || {};
 
         // Adding drop function to delete div
         $("#" + options.deleteDiv).droppable({
-            drop: function(event, ui) {
-                var element = ui.helper,
+            drop: (event, ui) => {
+                let element = ui.helper,
                     css_id = element.attr("id"),
                     id = css_id.replace(options.taskId, ""),
                     object = data[id];
@@ -108,8 +108,8 @@ data = data || {};
     };
 
     // Add Task
-    var generateElement = function(params){
-        var parent = $(codes[params.code]),
+    let generateElement = (params) => {
+        let parent = $(codes[params.code]),
             wrapper;
 
         if (!parent) {
@@ -138,10 +138,10 @@ data = data || {};
         }).appendTo(wrapper);
 
 	    wrapper.draggable({
-            start: function() {
+            start: () => {
                 $("#" + defaults.deleteDiv).show();
             },
-            stop: function() {
+            stop: ()  => {
                 $("#" + defaults.deleteDiv).hide();
             },
 	        revert: "invalid",
@@ -151,12 +151,12 @@ data = data || {};
     };
 
     // Remove task
-    var removeElement = function (params) {
+    let removeElement = (params) => {
         $("#" + defaults.taskId + params.id).remove();
     };
 
-    todo.add = function() {
-        var inputs = $("#" + defaults.formId + " :input"),
+    todo.add = () => {
+        let inputs = $("#" + defaults.formId + " :input"),
             errorMessage = "Title can not be empty",
             id, title, description, date, tempData;
 
@@ -165,8 +165,11 @@ data = data || {};
         }
 
         title = inputs[0].value;
-        description = inputs[1].value;
-        date = inputs[2].value;
+        description = inputs[2].value;
+        date = inputs[1].value;
+        
+        //description = inputs[1].value;
+        //date = inputs[2].value;
 
         if (!title) {
             generateDialog(errorMessage);
@@ -175,6 +178,7 @@ data = data || {};
 
         id = new Date().getTime();
 
+        /*
         tempData = {
             id : id,
             code: "1",
@@ -182,6 +186,14 @@ data = data || {};
             date: date,
             description: description
         };
+        */
+       tempData = {
+           id : id,
+           code: "1",
+           title: title,
+           description: description,
+           date: date
+       };
 
         // Saving element in local storage
         data[id] = tempData;
@@ -196,8 +208,8 @@ data = data || {};
         inputs[2].value = "";
     };
 
-    var generateDialog = function (message) {
-        var responseId = "response-dialog",
+    let generateDialog = (message) => {
+        let responseId = "response-dialog",
             title = "Message",
             responseDialog = $("#" + responseId),
             buttonOptions;
@@ -212,7 +224,7 @@ data = data || {};
         responseDialog.html(message);
 
         buttonOptions = {
-            "Ok" : function () {
+            "Ok" : () => {
                 responseDialog.dialog("close");
             }
         };
@@ -226,7 +238,7 @@ data = data || {};
         });
     };
 
-    todo.clear = function () {
+    todo.clear = () => {
         data = {};
         localStorage.setItem("todoData", JSON.stringify(data));
         $("." + defaults.todoTask).remove();
